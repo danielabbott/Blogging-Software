@@ -1,0 +1,5 @@
+`heading`a2`/heading`
+`img image.png`
+hi :)
+`img a_folder/boris.jpg`
+`html myhtml.html`

@@ -1,0 +1,7 @@
+.kdev4
+build
+*.kdev4
+TODO.txt
+testblog/build/index.html
+testblog/build/a1/index.html
+testblog/build/a2/index.html
