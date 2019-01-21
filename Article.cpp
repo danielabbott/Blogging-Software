@@ -79,7 +79,7 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
     }
 
     exportedArticle = exportedArticle + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head><body><div id=\"Container\">"
-    "<div id=\"TitleBar\"><h1>Blog Title</h1></div>"
+    "<div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>"
     "<div id=\"ArticleContent\">";
 
 

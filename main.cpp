@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
         
         tagCollection.loadFeaturedTags(std::string(argv[1]) + "/featuredtags.txt");
         
-        create_main_page(std::string(argv[1]) + "/build/", articles, tagCollection);
+        create_main_page(std::string(argv[1]) + "/build/", articles, tagCollection, config);
         
         save_file(std::string(argv[1]) + "/build/blog.rss", make_rss(articles, config));
         

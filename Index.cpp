@@ -4,15 +4,16 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include "BlogConfig.hpp"
 
 void create_main_page(std::__cxx11::string buildDir,
-                      const std::vector< Article >& articles, const TagCollection & tagCollection)
+                      const std::vector< Article >& articles, const TagCollection & tagCollection, const BlogConfig & config)
 {
     std::string index = "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
     "<link rel=\"stylesheet\" type=\"text/css\" href=\"theme.css\">"
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">";
 
-    index += "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>[Blog Title]</h1></div>"
+    index += "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>"
     "<div id=\"leftbar\">Featured Tags<br/>";
     
     auto addTag = [&index](const TagString & tag){ index = index + "<br/>" + tag; };
