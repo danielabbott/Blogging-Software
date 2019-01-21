@@ -8,17 +8,46 @@
 #include <fstream>
 #include <sstream>
 #include "Tags.hpp"
+#include "RSS.hpp"
 
 std::string load_file(const std::string & file)
 {
-    std::ifstream cssStream(file);
-    if(cssStream.is_open()) {
+    std::ifstream stream(file);
+    if(stream.is_open()) {
         std::stringstream buffer;
-        buffer << cssStream.rdbuf();
+        buffer << stream.rdbuf();
         return buffer.str();
     }
     else {
         throw std::runtime_error("File not found");
+    }
+}
+
+void save_file(const std::string & file, const std::string & text)
+{
+    std::ofstream stream(file);
+    if(stream.is_open()) {
+        stream.write(text.c_str(), text.size());
+    }
+    else {
+        throw std::runtime_error("File not found");
+    }
+}
+
+void copy_css_file(const std::string & buildDir)
+{
+    std::string destinationPath = buildDir + "theme.css";
+    
+    bool fileAlreadyExits = false;
+    
+    {
+        std::ifstream s(destinationPath);
+        fileAlreadyExits = s.is_open(); 
+    }
+    
+    if(!fileAlreadyExits) {
+        auto css = load_file("default.css");
+        save_file(destinationPath, css);
     }
 }
 
@@ -50,6 +79,10 @@ int main(int argc, char **argv) {
         tagCollection.loadFeaturedTags(std::string(argv[1]) + "/featuredtags.txt");
         
         create_main_page(std::string(argv[1]) + "/build/", articles, tagCollection);
+        
+        save_file(std::string(argv[1]) + "/build/blog.rss", make_rss(articles, config));
+        
+        copy_css_file(std::string(argv[1]) + "/build/");
     }
     catch(std::exception& e) {
         std::cout << "The software has encountered a fatal error: " << e.what() << std::endl;

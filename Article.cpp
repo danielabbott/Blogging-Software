@@ -62,7 +62,7 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
     }
 
     exportedArticle = "<!DOCTYPE html><html lang=\"en-GB\"><head><title>" + title + "</title>" + "<meta charset=\"UTF-8\">"
-    "<link rel=\"stylesheet\" type=\"text/css\" href=\"../default.css\">"
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"../theme.css\">"
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">";
 
 

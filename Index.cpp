@@ -9,7 +9,7 @@ void create_main_page(std::__cxx11::string buildDir,
                       const std::vector< Article >& articles, const TagCollection & tagCollection)
 {
     std::string index = "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-    "<link rel=\"stylesheet\" type=\"text/css\" href=\"default.css\">"
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"theme.css\">"
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">";
 
     index += "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>[Blog Title]</h1></div>"

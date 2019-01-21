@@ -28,6 +28,12 @@ BlogConfig::BlogConfig(std::string rootDirectory)
         else if(lowercase.substr(0, 6) == "name: ") {
             blogName = line.substr(6);
         }
+        else if(lowercase.substr(0, 5) == "url: ") {
+            blogURL = line.substr(5);
+            if(blogURL.substr(blogURL.size() - 1) != "/") {
+                blogURL += '/';
+            }
+        }
         else {
             clog << "Unrecognised setting in configuration file: " << line << "\n";
         }

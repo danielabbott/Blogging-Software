@@ -7,6 +7,9 @@
 struct BlogConfig {
     std::string blogName;
     
+    // Root URL. Files in the build directory are placed under this URL.
+    std::string blogURL;
+    
     // e.g. https://danielabbott-test.disqus.com/embed.js
     // If empty then disqus is diabled (Default setting)
     std::string disqusURL;

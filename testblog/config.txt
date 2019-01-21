@@ -1,2 +1,3 @@
 name: testblog
 *disqus-url: https://danielabbott-test.disqus.com/embed.js
+url: danielabbott.github.io/

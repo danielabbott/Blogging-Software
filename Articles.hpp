@@ -55,6 +55,8 @@ public:
     Article(std::string articlesRootDir, std::string articleFolderName_);
     
     std::string const& getFolderName() const { return articleFolderName; }
+    std::string const& getTitle() const { return title; }
+    std::string const& getMeta() const { return meta; }
     
     
     // article.txt is parsed, resources are loaded/inspected
