@@ -95,6 +95,7 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
     bool italics = false;
     bool strikethrough = false;
     bool raw = false; // html code inserted directly into output
+    bool link = false;
 
     for(char c : rawContent) {
         if(c == '`') {
@@ -204,6 +205,19 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
                         else if(tagLowerCase == "html") {
                             raw = true;
                         }
+                        else if(tagLowerCase.substr(0, 8) == "linkdst ") {
+                            exportedArticle = exportedArticle + "<a name=\"" + tag.substr(8) + "\"><a/>";
+                        }
+                        else if(tagLowerCase.substr(0, 5) == "link ") {
+                            exportedArticle = exportedArticle + "<a href=\"" + tag.substr(5) + "\">";
+                            link = true;
+                        }
+                        else if(tagLowerCase == "/link") {
+                            if(link) {
+                                exportedArticle += "</a>";
+                            }
+                            link = false;
+                        }
                     }
                     else if(tagLowerCase == "/html") {
                         raw = false;
@@ -224,7 +238,7 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
                 tag += c;
             }
             else {
-                if(c == '\n') {
+                if(!raw && c == '\n') {
                     exportedArticle += "<br/>";
                 }
                 else {
