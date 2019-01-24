@@ -34,6 +34,9 @@ BlogConfig::BlogConfig(std::string rootDirectory)
                 blogURL += '/';
             }
         }
+        else if(lowercase.substr(0, 11) == "copyright: ") {
+            copyrightHolder = line.substr(11);
+        }
         else {
             clog << "Unrecognised setting in configuration file: " << line << "\n";
         }

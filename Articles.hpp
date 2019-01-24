@@ -70,4 +70,10 @@ public:
 
 std::vector<Article> getArticles(std::string rootDirPath);
 
+std::string get_footer_html(const std::string & blogName, const std::string & copyrightOwner);
+
+// A small amount of Javascript that is included in the head section of every page
+// Includes the <script> and </script>
+const char * get_common_script();
+
 

@@ -10,10 +10,11 @@ void create_main_page(std::__cxx11::string buildDir,
                       const std::vector< Article >& articles, const TagCollection & tagCollection, const BlogConfig & config)
 {
     std::string index = "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-    "<link rel=\"stylesheet\" type=\"text/css\" href=\"theme.css\">"
+    "<link rel=\"preload\" href=\"theme.css\" as=\"style\" onload=\"this.rel='stylesheet'\">"
+    "<noscript><link rel=\"stylesheet\" href=\"theme.css\"></noscript>"
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">";
 
-    index += "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>"
+    index = index + "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>"
     "<div id=\"leftbar\">Featured Tags<br/>";
     
     auto addTag = [&index](const TagString & tag){ index = index + "<br/>" + tag; };
@@ -38,9 +39,11 @@ void create_main_page(std::__cxx11::string buildDir,
     }
 
     
-    index += "</div><footer><p>[blog name] Copyright © bleh</p></footer></div>";
+    index += "</div>" + 
+    get_footer_html(config.blogName, config.copyrightHolder) +
+    "</div>";
     
-    index += "</body></html>";
+    index = index + get_common_script() + "</body></html>";
 
     std::ofstream out(buildDir + "index.html");
     out.write(index.c_str(), index.size());

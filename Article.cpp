@@ -5,7 +5,9 @@
 #include <exception>
 #include "String.hpp"
 #include <cassert>
+#include <string>
 #include "BlogConfig.hpp"
+#include <ctime>
 
 Article::Article(std::string articlesRootDir, std::string articleFolderName_)
     : articleFolderName(articleFolderName_)
@@ -62,7 +64,8 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
     }
 
     exportedArticle = "<!DOCTYPE html><html lang=\"en-GB\"><head><title>" + title + "</title>" + "<meta charset=\"UTF-8\">"
-    "<link rel=\"stylesheet\" type=\"text/css\" href=\"theme.css\">"
+    "<link rel=\"preload\" href=\"theme.css\" as=\"style\" onload=\"this.rel='stylesheet'\">"
+    "<noscript><link rel=\"stylesheet\" href=\"theme.css\"></noscript>"
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">";
 
 
@@ -246,7 +249,9 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
 
     }
 
-    exportedArticle = exportedArticle + "</div><footer><p>[blog name] Copyright © bleh</p></footer></div></body></html>";
+    exportedArticle = exportedArticle + "</div>" + 
+                      get_footer_html(config.blogName, config.copyrightHolder) +
+    "</div>" + get_common_script() + "</body></html>";
 
 
     return rawContent;
@@ -291,3 +296,32 @@ void test__load_test_article()
 }
 #endif
 
+std::string get_footer_html(const std::string & blogName, const std::string & copyrightOwner)
+{
+    std::time_t t = std::time(nullptr);
+    std::tm* now = std::localtime(&t);
+    
+    const std::string yearString = std::to_string(now->tm_year + 1900);
+    const std::string monthString = std::to_string(now->tm_mon + 1);
+    const std::string dayString = std::to_string(now->tm_mday);
+    
+    if(copyrightOwner.size()) {
+        return "<footer><p>" + blogName + " Copyright &copy; " + copyrightOwner + " <span class=\"CurrentYear\"></span>. "
+        "Page last modified: " + yearString + '/' + monthString + '/' + dayString + "</p></footer>";
+    }
+    else {
+        return "<footer><p>Page last modified: " + yearString + '/' + monthString + '/' + dayString + "</p></footer>";
+    }
+}
+
+const char * get_common_script()
+{
+    return "<script>"
+    "var d = new Date();"
+    "var x = document.getElementsByClassName(\"CurrentYear\");"
+    "var i;"
+    "for (i = 0; i < x.length; i++) {"
+        "x[i].textContent = d.getFullYear();"
+    "}"
+    "</script>";
+}

@@ -14,6 +14,9 @@ struct BlogConfig {
     // If empty then disqus is diabled (Default setting)
     std::string disqusURL;
     
+    // Used in the footer of all pages
+    std::string copyrightHolder;
+    
 
     // Reads the config.txt file and sets variables to match
     // Root directory path should end with a path seperator ('/' or '\')
