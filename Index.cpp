@@ -28,7 +28,7 @@ void create_main_page(std::__cxx11::string buildDir,
     index += "</div><div id=\"ArticleContent\">";
 
     for(auto const& article : articles) {
-        index = index + "<div class=\"ArticlePreview\"><h2><a href=\"" + article.getFolderName() + "/index.html" + "\">" + article.title + "</a></h2>";
+        index = index + "<div class=\"ArticlePreview\"><h2><a href=\"" + article.getFolderName() + ".html" + "\">" + article.title + "</a></h2>";
         
         if(article.meta.size()) {
             index += article.meta;

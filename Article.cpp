@@ -62,7 +62,7 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
     }
 
     exportedArticle = "<!DOCTYPE html><html lang=\"en-GB\"><head><title>" + title + "</title>" + "<meta charset=\"UTF-8\">"
-    "<link rel=\"stylesheet\" type=\"text/css\" href=\"../theme.css\">"
+    "<link rel=\"stylesheet\" type=\"text/css\" href=\"theme.css\">"
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">";
 
 
@@ -182,7 +182,7 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
                         else if(tagLowerCase.substr(0, 4) == "img ") {
                             // TODO: Parse image file headers and set width and height values
 
-                            exportedArticle = exportedArticle + "<img src=\"../res/" + tag.substr(4) + "\">";
+                            exportedArticle = exportedArticle + "<img src=\"res/" + tag.substr(4) + "\">";
                         }
                         else if(tagLowerCase.substr(0, 5) == "html ") {
                             std::string htmlPath = tag.substr(5);
@@ -254,7 +254,7 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
 
 void Article::saveExport(const std::string& articlesExportRootDir)
 {
-    std::ofstream out(articlesExportRootDir + articleFolderName + "/index.html");
+    std::ofstream out(articlesExportRootDir + articleFolderName + ".html");
     out.write(exportedArticle.c_str(), exportedArticle.size());
 }
 
