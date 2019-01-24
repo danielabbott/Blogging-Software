@@ -2,6 +2,38 @@
 #include "Articles.hpp"
 #include <fstream>
 #include <algorithm>
+#include <cassert>
+#include <iostream>
+#include <sstream>
+
+std::string url_safe_tag_name(const TagString & tag)
+{
+    std::string s;
+    for(const char c : tag) {
+        if(c == ' ' || c == ':' || c == '/' || c == '?' || c == '#' || c == '[' || c == ']' || c == '@'
+             || c == '!' || c == '$' || c == '&' || c == '\'' || c == '(' || c == ')' || c == '*' || c == '+'
+                    || c == ',' || c == ';' || c == '='
+        ) {
+            std::stringstream stream;
+            stream << std::hex << (int)c;
+            s = s + '%' + stream.str();
+        }
+        else if (c > 0){
+            s += c;
+        }
+        else {
+            std::stringstream stream;
+            stream << std::hex << (int)c;
+            s = s + 'u' + stream.str();
+        }
+    }
+    return s;
+}
+
+void test__tag_to_url()
+{
+    assert(url_safe_tag_name("bob's tag") == "bob%27s%20tag");
+}
 
 void TagCollection::addTag(const TagString & name)
 {
@@ -50,6 +82,39 @@ void TagCollection::loadFeaturedTags(const std::string & filePath)
         if(tagExists) {
             featuredTags.push_back(featuredTag);
         }
+    }
+}
+
+void TagCollection::createTagPages(const std::string& buildDir, const BlogConfig & config)
+{
+    for(const auto & tagPair : tagMap) { 
+        std::string tagPage = "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+        "<link rel=\"preload\" href=\"../theme.css\" as=\"style\" onload=\"this.rel='stylesheet'\">"
+        "<noscript><link rel=\"stylesheet\" href=\"../theme.css\"></noscript>"
+        "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">"
+        "</head><body><div id=\"Container\"><div id=\"TitleBar\"><a href=\"../index.html\"><h1>" + config.blogName + "</h1></a></div>"
+        + "<div id=\"ArticleContent\">";
+        
+        tagPage = tagPage + "<div class=\"ArticlePreview\"><h2>Tag: " + tagPair.first + "</h2></div><br/>";
+
+        for(auto const& article : tagPair.second) {
+            tagPage = tagPage + "<div class=\"ArticlePreview\"><h2><a href=\"../" + article->getFolderName() + ".html" + "\">" + article->title + "</a></h2>";
+            
+            if(article->meta.size()) {
+                tagPage += article->meta;
+            }
+            
+            tagPage += "</div><br/>";
+        }
+        
+        tagPage += "</div>" + 
+        get_footer_html(config.blogName, config.copyrightHolder) +
+        "</div>";
+        
+        tagPage = tagPage + get_common_script() + "</body></html>";
+        
+        std::ofstream f(buildDir + "tags/" + url_safe_tag_name(tagPair.first) + ".html");
+        f.write(tagPage.c_str(), tagPage.size());
     }
 }
 

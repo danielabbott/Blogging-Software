@@ -5,8 +5,11 @@
 #include <map>
 #include <memory>
 #include <functional>
+#include "BlogConfig.hpp"
 
 typedef std::string TagString;
+
+std::string url_safe_tag_name(const TagString & tag);
 
 class Article;
 
@@ -36,5 +39,7 @@ public:
     void forEachFeaturedTag(std::function<void(const TagString &)>) const;
     
     void loadFeaturedTags(const std::string & filePath);
+    
+    void createTagPages(const std::__cxx11::string& buildDir, const BlogConfig& config);
 };
 

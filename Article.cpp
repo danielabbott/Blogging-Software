@@ -17,7 +17,7 @@ Article::Article(std::string articlesRootDir, std::string articleFolderName_)
     editLog = EditLog(path);
 
     {
-        std::ifstream titleStream(path + "/title.txt");
+        std::ifstream titleStream(path + "title.txt");
         if (!std::getline(titleStream, title)) {
             throw std::runtime_error("Invalid title.txt for article at: " + path);
         }
@@ -25,7 +25,7 @@ Article::Article(std::string articlesRootDir, std::string articleFolderName_)
 
 
     {
-        std::ifstream metaStream(path + "/meta.txt");
+        std::ifstream metaStream(path + "meta.txt");
         if (!std::getline(metaStream, meta)) {
             meta.clear();
         }
@@ -33,14 +33,14 @@ Article::Article(std::string articlesRootDir, std::string articleFolderName_)
 
 
     {
-        std::ifstream rawContentStream(path + "/article.txt");
+        std::ifstream rawContentStream(path + "article.txt");
         std::stringstream buffer;
         buffer << rawContentStream.rdbuf();
         rawContent = buffer.str();
     }
 
     {
-        std::ifstream authorsStream(path + "/authors.txt");
+        std::ifstream authorsStream(path + "authors.txt");
         std::string author;
         while (std::getline(authorsStream, author)) {
             authors.push_back(author);
@@ -48,7 +48,7 @@ Article::Article(std::string articlesRootDir, std::string articleFolderName_)
     }
 
     {
-        std::ifstream tagsStream(path + "/tags.txt");
+        std::ifstream tagsStream(path + "tags.txt");
         std::string tag;
         while (std::getline(tagsStream, tag)) {
             tags.push_back(tag);
@@ -82,7 +82,7 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
     }
 
     exportedArticle = exportedArticle + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head><body><div id=\"Container\">"
-    "<div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>"
+    "<div id=\"TitleBar\"><a href=\"index.html\"><h1>" + config.blogName + "</h1></a></div>"
     "<div id=\"ArticleContent\">";
 
 

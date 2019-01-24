@@ -61,28 +61,35 @@ int main(int argc, char **argv) {
     }
     
     try {
-        BlogConfig config(argv[1]);
+        std::string rootDir = std::string(argv[1]);
+        if(rootDir[rootDir.size()-1] != '/' && rootDir[rootDir.size()-1] != '\\') {
+            rootDir += '/';
+        }
         
-        std::vector<Article> articles = getArticles(argv[1]);
+        BlogConfig config(rootDir);
+        
+        std::vector<Article> articles = getArticles(rootDir);
         TagCollection tagCollection;
         
         for(auto& a : articles) {
             tagCollection.addAllTagsFromArticle(a);
-            a.build(config, argv[1]);
-            a.saveExport(std::string(argv[1]) + "/build/");
+            a.build(config, rootDir);
+            a.saveExport(std::string(rootDir) + "build/");
         }
         
         for(auto& a : articles) {
             tagCollection.addArticle(std::make_shared<Article>(a));            
         }
         
-        tagCollection.loadFeaturedTags(std::string(argv[1]) + "/featuredtags.txt");
+        tagCollection.loadFeaturedTags(std::string(rootDir) + "featuredtags.txt");
         
-        create_main_page(std::string(argv[1]) + "/build/", articles, tagCollection, config);
+        tagCollection.createTagPages(std::string(rootDir) + "build/", config);
         
-        save_file(std::string(argv[1]) + "/build/blog.rss", make_rss(articles, config));
+        create_main_page(std::string(rootDir) + "build/", articles, tagCollection, config);
         
-        copy_css_file(std::string(argv[1]) + "/build/");
+        save_file(std::string(rootDir) + "build/blog.rss", make_rss(articles, config));
+        
+        copy_css_file(std::string(rootDir) + "build/");
     }
     catch(std::exception& e) {
         std::cout << "The software has encountered a fatal error: " << e.what() << std::endl;
@@ -106,6 +113,7 @@ int main(int argc, char **argv) {
     test__load_test_article();
     test__edit_log_is_valid();
     test__edit_log_set_time();
+    test__tag_to_url();
     
     
     // Run main function
