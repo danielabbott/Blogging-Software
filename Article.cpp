@@ -262,8 +262,6 @@ void Article::saveExport(const std::string& articlesExportRootDir)
 
 std::vector<Article> getArticles(std::string rootDirPath)
 {
-    // TODO: scan articles_src instead of relying on .txt file
-
     std::ifstream in(rootDirPath + "articles.txt");
     if(!in.is_open()) {
         throw std::runtime_error("Could not load articles.txt");

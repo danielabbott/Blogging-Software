@@ -3,6 +3,7 @@ html, body {
     padding: 0;
     height: 100%;
     font-family: 'Roboto', sans-serif;
+    background-color:#fafafa;
 }
 
 #TitleBar {
@@ -14,6 +15,7 @@ html, body {
     position: relative;
     top: 80px;
     text-align: center;
+    background-color:#ffffff;
 }
 
 #Container {
@@ -27,7 +29,8 @@ html, body {
     width: calc(100% - 412px);
     word-wrap: break-word;
     padding: 10px;
-    padding-bottom: 50px;   /* Height of the footer */
+    padding-bottom: 150px;   /* Height of the footer + 100 */
+    background-color: #ffffff;
 }
 
 #leftbar {
