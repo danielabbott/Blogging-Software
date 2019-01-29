@@ -9,6 +9,13 @@ html, body {
 #TitleBar {
     padding: 1px;
     background: #eeeeee;
+    padding-left: 1em;
+    
+}
+
+#TitleBar a {
+    text-decoration: none;
+    color: black;
 }
 
 .ArticlePreview {
@@ -52,9 +59,10 @@ html, body {
 footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: calc(100% - 1em);
     height: 50px;   /* Height of the footer */
     background: #eeeeee;
+    padding-left: 1em;
 }
 
 /* Article previews use the full width on mobile devices */
