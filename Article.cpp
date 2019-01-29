@@ -247,6 +247,12 @@ std::string& Article::build(const BlogConfig & config, std::string articlesRootD
             }
         }
     }
+    
+    exportedArticle += "<p>";
+    for(const auto & tag : tags) {
+        exportedArticle = exportedArticle + "<div class=\"tag\"><a href=\"tags/" + tag + ".html\">" + tag + "</a></div> ";
+    }
+    exportedArticle += "</p>";
 
     if(config.disqusURL.size()) {
 
