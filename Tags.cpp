@@ -92,10 +92,12 @@ void TagCollection::createTagPages(const std::string& buildDir, const BlogConfig
         "<link rel=\"preload\" href=\"../theme.css\" as=\"style\" onload=\"this.rel='stylesheet'\">"
         "<noscript><link rel=\"stylesheet\" href=\"../theme.css\"></noscript>"
         "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">"
-        "</head><body><div id=\"Container\"><div id=\"TitleBar\"><a href=\"../index.html\"><h1>" + config.blogName + "</h1></a></div>"
-        + "<div id=\"ArticleContent\">";
+        "</head><body><div id=\"Container\"><div id=\"TitleBar\"><a href=\"../index.html\"><h1>" + config.blogName + "</h1></a></div>";
         
-        tagPage = tagPage + "<div class=\"ArticlePreview\"><h2>Tag: " + tagPair.first + "</h2></div><br/>";
+        add_tag_side_bars(tagPage, *this);
+        
+        
+        tagPage = tagPage + "<div id=\"ArticleContent\"><div class=\"ArticlePreview\"><h2>Tag: " + tagPair.first + "</h2></div><br/>";
 
         for(auto const& article : tagPair.second) {
             tagPage = tagPage + "<div class=\"ArticlePreview\"><h2><a href=\"../" + article->getFolderName() + ".html" + "\">" + article->title + "</a></h2>";

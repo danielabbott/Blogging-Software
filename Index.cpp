@@ -6,6 +6,24 @@
 #include <iostream>
 #include "BlogConfig.hpp"
 
+void add_tag_side_bars(std::string & html, const TagCollection & tagCollection)
+{
+    html += "<div id=\"leftbar\">Featured Tags<br/>";
+    
+    auto addTag = [&html](const TagString & tag){
+        html = html + "<br/><a href=\"tags/" + url_safe_tag_name(tag) + ".html\">" + tag + "</a>";        
+    };
+    
+    tagCollection.forEachFeaturedTag(addTag);
+    
+    html += "</div><div id=\"rightbar\">All Tags<br/>";    
+    
+    tagCollection.forEachTag(addTag);
+    
+    html += "</div>";
+    
+}
+
 void create_main_page(std::__cxx11::string buildDir,
                       const std::vector< Article >& articles, const TagCollection & tagCollection, const BlogConfig & config)
 {
@@ -13,21 +31,12 @@ void create_main_page(std::__cxx11::string buildDir,
     "<link rel=\"preload\" href=\"theme.css\" as=\"style\" onload=\"this.rel='stylesheet'\">"
     "<noscript><link rel=\"stylesheet\" href=\"theme.css\"></noscript>"
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">"
-    "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>"
-    "<div id=\"leftbar\">Featured Tags<br/>";
+    "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>";
     
-    auto addTag = [&index](const TagString & tag){
-        index = index + "<br/><a href=\"tags/" + url_safe_tag_name(tag) + ".html\">" + tag + "</a>";        
-    };
-    
-    tagCollection.forEachFeaturedTag(addTag);
-    
-    index += "</div><div id=\"rightbar\">All Tags<br/>";    
-    
-    tagCollection.forEachTag(addTag);
+    add_tag_side_bars(index, tagCollection);
     
     
-    index += "</div><div id=\"ArticleContent\">";
+    index += "<div id=\"ArticleContent\">";
 
     for(auto const& article : articles) {
         index = index + "<div class=\"ArticlePreview\"><h2><a href=\"" + article.getFolderName() + ".html" + "\">" + article.title + "</a></h2>";
@@ -38,7 +47,6 @@ void create_main_page(std::__cxx11::string buildDir,
         
         index += "</div><br/>";
     }
-
     
     index += "</div>" + 
     get_footer_html(config.blogName, config.copyrightHolder) +

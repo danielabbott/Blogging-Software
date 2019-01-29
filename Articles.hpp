@@ -76,4 +76,6 @@ std::string get_footer_html(const std::string & blogName, const std::string & co
 // Includes the <script> and </script>
 const char * get_common_script();
 
+class TagCollection;
+void add_tag_side_bars(std::string & html, const TagCollection & tagCollection);
 
