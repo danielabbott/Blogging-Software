@@ -44,6 +44,8 @@ public:
     
     void createTagPages(const std::__cxx11::string& buildDir, const BlogConfig& config);
     
-    const std::string & getSidebarsHTML();
+    const std::string & getSidebarsHTMLForTagPage();
+    
+    std::string getSidebarsHTMLForIndexPage();
 };
 

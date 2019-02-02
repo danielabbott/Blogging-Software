@@ -6,10 +6,6 @@
 #include <iostream>
 #include "BlogConfig.hpp"
 
-void add_tag_side_bars(std::string & html, TagCollection & tagCollection)
-{
-    html += tagCollection.getSidebarsHTML();    
-}
 
 void create_main_page(std::__cxx11::string buildDir,
                       const std::vector< Article >& articles, TagCollection & tagCollection, const BlogConfig & config)
@@ -20,7 +16,7 @@ void create_main_page(std::__cxx11::string buildDir,
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">"
     "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>";
     
-    add_tag_side_bars(index, tagCollection);
+    index += tagCollection.getSidebarsHTMLForIndexPage();
     
     
     index += "<div id=\"ArticleContent\">";

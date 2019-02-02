@@ -94,7 +94,8 @@ void TagCollection::createTagPages(const std::string& buildDir, const BlogConfig
         "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">"
         "</head><body><div id=\"Container\"><div id=\"TitleBar\"><a href=\"../index.html\"><h1>" + config.blogName + "</h1></a></div>";
         
-        add_tag_side_bars(tagPage, *this);
+        
+        tagPage += getSidebarsHTMLForTagPage();
         
         
         tagPage = tagPage + "<div id=\"ArticleContent\"><div class=\"ArticlePreview\"><h2>Tag: " + tagPair.first + "</h2></div><br/>";
@@ -115,12 +116,12 @@ void TagCollection::createTagPages(const std::string& buildDir, const BlogConfig
         
         tagPage = tagPage + get_common_script() + "</body></html>";
         
-        std::ofstream f(buildDir + "tags/" + url_safe_tag_name(tagPair.first) + ".html");
+        std::ofstream f(buildDir + "tags/" + tagPair.first + ".html");
         f.write(tagPage.c_str(), tagPage.size());
     }
 }
 
-const std::string & TagCollection::getSidebarsHTML()
+const std::string & TagCollection::getSidebarsHTMLForTagPage()
 {
     if(sidebarsHTMLCache.size()) {
         return sidebarsHTMLCache;
@@ -128,7 +129,7 @@ const std::string & TagCollection::getSidebarsHTML()
     sidebarsHTMLCache = "<div id=\"leftbar\">Featured Tags<br/>";
     
     auto addTag = [this](const TagString & tag){
-        sidebarsHTMLCache = sidebarsHTMLCache + "<br/><a href=\"tags/" + url_safe_tag_name(tag) + ".html\">" + tag + "</a>";        
+        sidebarsHTMLCache = sidebarsHTMLCache + "<br/><a href=\"" + url_safe_tag_name(tag) + ".html\">" + tag + "</a>";        
     };
     
     forEachFeaturedTag(addTag);
@@ -140,6 +141,25 @@ const std::string & TagCollection::getSidebarsHTML()
     sidebarsHTMLCache += "</div>";
     
     return sidebarsHTMLCache;
+}
+
+std::string TagCollection::getSidebarsHTMLForIndexPage()
+{
+    std::string html = "<div id=\"leftbar\">Featured Tags<br/>";
+    
+    auto addTag = [&html](const TagString & tag){
+        html = html + "<br/><a href=\"tags/" + url_safe_tag_name(tag) + ".html\">" + tag + "</a>";        
+    };
+    
+    forEachFeaturedTag(addTag);
+    
+    html += "</div><div id=\"rightbar\">All Tags<br/>";    
+    
+    forEachTag(addTag);
+    
+    html += "</div>";
+    
+    return html;
 }
 
 
