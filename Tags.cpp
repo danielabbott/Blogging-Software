@@ -120,3 +120,26 @@ void TagCollection::createTagPages(const std::string& buildDir, const BlogConfig
     }
 }
 
+const std::string & TagCollection::getSidebarsHTML()
+{
+    if(sidebarsHTMLCache.size()) {
+        return sidebarsHTMLCache;
+    }
+    sidebarsHTMLCache = "<div id=\"leftbar\">Featured Tags<br/>";
+    
+    auto addTag = [this](const TagString & tag){
+        sidebarsHTMLCache = sidebarsHTMLCache + "<br/><a href=\"tags/" + url_safe_tag_name(tag) + ".html\">" + tag + "</a>";        
+    };
+    
+    forEachFeaturedTag(addTag);
+    
+    sidebarsHTMLCache += "</div><div id=\"rightbar\">All Tags<br/>";    
+    
+    forEachTag(addTag);
+    
+    sidebarsHTMLCache += "</div>";
+    
+    return sidebarsHTMLCache;
+}
+
+

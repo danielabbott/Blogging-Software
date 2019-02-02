@@ -21,6 +21,8 @@ class TagCollection
     
     std::vector<TagString> featuredTags;
     
+    std::string sidebarsHTMLCache;
+    
 public:
     
     void addTag(const TagString & name);
@@ -41,5 +43,7 @@ public:
     void loadFeaturedTags(const std::string & filePath);
     
     void createTagPages(const std::__cxx11::string& buildDir, const BlogConfig& config);
+    
+    const std::string & getSidebarsHTML();
 };
 

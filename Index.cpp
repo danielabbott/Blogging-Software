@@ -6,26 +6,13 @@
 #include <iostream>
 #include "BlogConfig.hpp"
 
-void add_tag_side_bars(std::string & html, const TagCollection & tagCollection)
+void add_tag_side_bars(std::string & html, TagCollection & tagCollection)
 {
-    html += "<div id=\"leftbar\">Featured Tags<br/>";
-    
-    auto addTag = [&html](const TagString & tag){
-        html = html + "<br/><a href=\"tags/" + url_safe_tag_name(tag) + ".html\">" + tag + "</a>";        
-    };
-    
-    tagCollection.forEachFeaturedTag(addTag);
-    
-    html += "</div><div id=\"rightbar\">All Tags<br/>";    
-    
-    tagCollection.forEachTag(addTag);
-    
-    html += "</div>";
-    
+    html += tagCollection.getSidebarsHTML();    
 }
 
 void create_main_page(std::__cxx11::string buildDir,
-                      const std::vector< Article >& articles, const TagCollection & tagCollection, const BlogConfig & config)
+                      const std::vector< Article >& articles, TagCollection & tagCollection, const BlogConfig & config)
 {
     std::string index = "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
     "<link rel=\"preload\" href=\"theme.css\" as=\"style\" onload=\"this.rel='stylesheet'\">"
