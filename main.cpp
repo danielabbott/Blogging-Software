@@ -58,6 +58,7 @@ int main(int argc, char **argv) {
 #endif
     if(argc != 2) {
         std::cout << "Usage: blogsoft [path to root directory of blog]" << std::endl;
+        return 1;
     }
     
     try {
