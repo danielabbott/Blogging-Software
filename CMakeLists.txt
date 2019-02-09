@@ -10,7 +10,7 @@ set (CMAKE_CXX_STANDARD 11)
 add_executable(blogsoft Main.cpp BlogConfig.cpp EditLog.cpp Article.cpp Index.cpp Tags.cpp RSS.cpp)
 
 if(MSVC)
-  target_compile_options(blogsoft PRIVATE /W4 /WX /O0)
+  target_compile_options(blogsoft PRIVATE /W4 /Od)
 else(MSVC)
   target_compile_options(blogsoft PRIVATE -Wall -Wextra -pedantic -O0 -fno-lto)
 endif(MSVC)

@@ -7,7 +7,7 @@
 #include "BlogConfig.hpp"
 
 
-void create_main_page(std::__cxx11::string buildDir,
+void create_main_page(std::string buildDir,
                       const std::vector< Article >& articles, TagCollection & tagCollection, const BlogConfig & config)
 {
     std::string index = "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"

@@ -19,7 +19,7 @@ std::string load_file(const std::string & file)
         return buffer.str();
     }
     else {
-        throw std::runtime_error("File not found");
+        throw std::runtime_error("File not found: " + file);
     }
 }
 
@@ -30,7 +30,7 @@ void save_file(const std::string & file, const std::string & text)
         stream.write(text.c_str(), text.size());
     }
     else {
-        throw std::runtime_error("File not found");
+		throw std::runtime_error("Error saving file: " + file);
     }
 }
 

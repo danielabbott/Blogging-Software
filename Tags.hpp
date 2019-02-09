@@ -42,7 +42,7 @@ public:
     
     void loadFeaturedTags(const std::string & filePath);
     
-    void createTagPages(const std::__cxx11::string& buildDir, const BlogConfig& config);
+    void createTagPages(const std::string& buildDir, const BlogConfig& config);
     
     const std::string & getSidebarsHTMLForTagPage();
     
