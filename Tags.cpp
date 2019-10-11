@@ -89,8 +89,7 @@ void TagCollection::createTagPages(const std::string& buildDir, const BlogConfig
 {
     for(const auto & tagPair : tagMap) { 
         std::string tagPage = "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-        "<link rel=\"preload\" href=\"../theme.css\" as=\"style\" onload=\"this.rel='stylesheet'\">"
-        "<noscript><link rel=\"stylesheet\" href=\"../theme.css\"></noscript>"
+        "<link href=\"../theme.css\" rel=\"stylesheet\">"
         "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">"
         "</head><body><div id=\"Container\"><div id=\"TitleBar\"><a href=\"../index.html\"><h1>" + config.blogName + "</h1></a></div>";
         

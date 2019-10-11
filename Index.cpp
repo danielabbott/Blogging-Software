@@ -11,8 +11,7 @@ void create_main_page(std::string buildDir,
                       const std::vector< Article >& articles, TagCollection & tagCollection, const BlogConfig & config)
 {
     std::string index = "<!DOCTYPE html><html lang=\"en-GB\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-    "<link rel=\"preload\" href=\"theme.css\" as=\"style\" onload=\"this.rel='stylesheet'\">"
-    "<noscript><link rel=\"stylesheet\" href=\"theme.css\"></noscript>"
+    "<link href=\"theme.css\" rel=\"stylesheet\">"
     "<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">"
     "</head><body><div id=\"Container\"><div id=\"TitleBar\"><h1>" + config.blogName + "</h1></div>";
     
