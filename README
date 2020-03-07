@@ -1,0 +1,5 @@
+Takes articles written in a custom markup language and generates a HTML/CSS website.
+
+Requires C++17.
+To compile: create a visual studio project or use g++ on the command line. Remember to set the C++ spec version (c++17).
+To run with the test blog: Pass the path to the testblog directory as the argument. Generated website is in the testblog/build directory.

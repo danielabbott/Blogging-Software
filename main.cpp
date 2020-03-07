@@ -9,6 +9,7 @@
 #include <sstream>
 #include "Tags.hpp"
 #include "RSS.hpp"
+#include <filesystem>
 
 std::string load_file(const std::string & file)
 {
@@ -66,6 +67,8 @@ int main(int argc, char **argv) {
         if(rootDir[rootDir.size()-1] != '/' && rootDir[rootDir.size()-1] != '\\') {
             rootDir += '/';
         }
+
+        std::filesystem::create_directories(std::string(rootDir) + "build/tags");
         
         BlogConfig config(rootDir);
         
